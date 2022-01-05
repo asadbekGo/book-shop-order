@@ -1,3 +1,6 @@
 [submodule "or-protos"]
 	path = or-protos
 	url = https://github.com/JasurbekUz/or-protos.git
+[submodule "protos"]
+	path = protos
+	url = https://github.com/asadbekGo/protos.git
