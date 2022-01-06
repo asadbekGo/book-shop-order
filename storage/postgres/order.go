@@ -20,8 +20,8 @@ func NewOrderRepo(db *sqlx.DB) *orderRepo {
 func (r *orderRepo) Create(order pb.Order) (pb.Order, error) {
 	var id string
 	err := r.db.QueryRow(`
-		INSERT INTO orders(order_id, book_id, quantity, description)
-		VALUES ($1, $2, $3, $4, $5) returning order_id`,
+		INSERT INTO orders(order_id, book_id, quantity, description, updated_at)
+		VALUES ($1, $2, $3, $4, current_timestamp) returning order_id`,
 		order.Id,
 		order.BookId,
 		order.Quantity,
@@ -44,13 +44,14 @@ func (r *orderRepo) Get(id string) (pb.Order, error) {
 	var order pb.Order
 
 	err := r.db.QueryRow(`
-		SELECT order_id, book_id, quantity, description, created_at FROM orders 
+		SELECT order_id, book_id, quantity, description, created_at, updated_at FROM orders 
 		WHERE order_id=$1 and deleted_at is null`, id).Scan(
 		&order.Id,
 		&order.BookId,
 		&order.Quantity,
 		&order.Description,
 		&order.CreatedAt,
+		&order.UpdatedAt,
 	)
 	if err != nil {
 		return pb.Order{}, err
@@ -106,7 +107,7 @@ func (r *orderRepo) List(page, limit int64) ([]*pb.Order, int64, error) {
 func (r *orderRepo) Update(order pb.Order) (pb.Order, error) {
 	result, err := r.db.Exec(`
 		UPDATE orders SET book_id=$1, quantity=$2, description=$3, updated_at=current_timestamp
-		WHERE order_id=$6 and deleted_at is null`,
+		WHERE order_id=$4 and deleted_at is null`,
 		order.BookId,
 		order.Quantity,
 		order.Description,
