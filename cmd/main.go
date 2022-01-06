@@ -6,12 +6,12 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/JasurbekUz/orderService/config"
-	pb "github.com/JasurbekUz/orderService/genproto/order_service"
-	"github.com/JasurbekUz/orderService/pkg/db"
-	"github.com/JasurbekUz/orderService/pkg/logger"
-	"github.com/JasurbekUz/orderService/service"
-	"github.com/JasurbekUz/orderService/storage"
+	"github.com/asadbekGo/book-shop-order/config"
+	pb "github.com/asadbekGo/book-shop-order/genproto/order_service"
+	"github.com/asadbekGo/book-shop-order/pkg/db"
+	"github.com/asadbekGo/book-shop-order/pkg/logger"
+	"github.com/asadbekGo/book-shop-order/service"
+	"github.com/asadbekGo/book-shop-order/storage"
 )
 
 func main() {

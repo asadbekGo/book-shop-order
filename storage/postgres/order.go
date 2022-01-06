@@ -5,7 +5,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	pb "github.com/JasurbekUz/orderService/genproto/order_service"
+	pb "github.com/asadbekGo/book-shop-order/genproto/order_service"
 )
 
 type orderRepo struct {

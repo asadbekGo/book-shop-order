@@ -7,9 +7,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	pb "github.com/JasurbekUz/orderService/genproto/order_service"
-	l "github.com/JasurbekUz/orderService/pkg/logger"
-	"github.com/JasurbekUz/orderService/storage"
+	pb "github.com/asadbekGo/book-shop-order/genproto/order_service"
+	l "github.com/asadbekGo/book-shop-order/pkg/logger"
+	"github.com/asadbekGo/book-shop-order/storage"
 )
 
 // OrderService ...

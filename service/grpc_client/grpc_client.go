@@ -1,7 +1,7 @@
 package grpcClient
 
 import (
-	"github.com/JasurbekUz/orderService/config"
+	"github.com/asadbekGo/book-shop-order/config"
 )
 
 // IGrpcClient ...

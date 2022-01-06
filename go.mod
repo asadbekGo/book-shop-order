@@ -1,4 +1,4 @@
-module github.com/JasurbekUz/orderService
+module github.com/asadbekGo/book-shop-order
 
 go 1.17
 

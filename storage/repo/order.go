@@ -1,7 +1,7 @@
 package repo
 
 import (
-	pb "github.com/JasurbekUz/orderService/genproto/order_service"
+	pb "github.com/asadbekGo/book-shop-order/genproto/order_service"
 )
 
 // UserStorageI ...

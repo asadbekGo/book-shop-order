@@ -3,8 +3,8 @@ package storage
 import (
 	"github.com/jmoiron/sqlx"
 
-	"github.com/JasurbekUz/orderService/storage/postgres"
-	"github.com/JasurbekUz/orderService/storage/repo"
+	"github.com/asadbekGo/book-shop-order/storage/postgres"
+	"github.com/asadbekGo/book-shop-order/storage/repo"
 )
 
 // IStorage ...
