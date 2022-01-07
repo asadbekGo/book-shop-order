@@ -6,9 +6,9 @@ import (
 
 // UserStorageI ...
 type OrderStorageI interface {
-	Create(pb.Order) (pb.Order, error)
-	Get(id string) (pb.Order, error)
-	List(page, limit int64) ([]*pb.Order, int64, error)
-	Update(pb.Order) (pb.Order, error)
-	Delete(id string) error
+	CreateOrder(pb.Order) (pb.Order, error)
+	GetOrder(id string) (pb.Order, error)
+	ListOrders(page, limit int64) ([]*pb.Order, int64, error)
+	UpdateOrder(pb.Order) (pb.Order, error)
+	DeleteOrder(id string) error
 }
