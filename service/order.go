@@ -26,7 +26,7 @@ func NewOrderService(storage storage.IStorage, log l.Logger) *OrderService {
 	}
 }
 
-func (s *OrderService) Create(ctx context.Context, req *pb.Order) (*pb.Order, error) {
+func (s *OrderService) CreateOrder(ctx context.Context, req *pb.Order) (*pb.Order, error) {
 	id, err := uuid.NewV4()
 	if err != nil {
 		s.logger.Error("failed while generating uuid", l.Error(err))
@@ -34,7 +34,7 @@ func (s *OrderService) Create(ctx context.Context, req *pb.Order) (*pb.Order, er
 	}
 	req.Id = id.String()
 
-	order, err := s.storage.Order().Create(*req)
+	order, err := s.storage.Order().CreateOrder(*req)
 	if err != nil {
 		s.logger.Error("falied to create order", l.Error(err))
 		return nil, status.Error(codes.Internal, "failed to create order")
@@ -43,8 +43,8 @@ func (s *OrderService) Create(ctx context.Context, req *pb.Order) (*pb.Order, er
 	return &order, nil
 }
 
-func (s *OrderService) Get(ctx context.Context, req *pb.ByIdReq) (*pb.Order, error) {
-	order, err := s.storage.Order().Get(req.Id)
+func (s *OrderService) GetOrder(ctx context.Context, req *pb.ByIdReq) (*pb.Order, error) {
+	order, err := s.storage.Order().GetOrder(req.Id)
 	if err != nil {
 		s.logger.Error("failed to get order", l.Error(err))
 		return nil, status.Error(codes.Internal, "failed to get order")
@@ -53,8 +53,8 @@ func (s *OrderService) Get(ctx context.Context, req *pb.ByIdReq) (*pb.Order, err
 	return &order, nil
 }
 
-func (s *OrderService) List(ctx context.Context, req *pb.ListReq) (*pb.ListResp, error) {
-	orders, count, err := s.storage.Order().List(req.Page, req.Limit)
+func (s *OrderService) ListOrders(ctx context.Context, req *pb.ListReq) (*pb.ListResp, error) {
+	orders, count, err := s.storage.Order().ListOrders(req.Page, req.Limit)
 	if err != nil {
 		s.logger.Error("failed to list order", l.Error(err))
 		return nil, status.Error(codes.Internal, "failed to list order")
@@ -66,8 +66,8 @@ func (s *OrderService) List(ctx context.Context, req *pb.ListReq) (*pb.ListResp,
 	}, nil
 }
 
-func (s *OrderService) Update(ctx context.Context, req *pb.Order) (*pb.Order, error) {
-	order, err := s.storage.Order().Update(*req)
+func (s *OrderService) UpdateOrder(ctx context.Context, req *pb.Order) (*pb.Order, error) {
+	order, err := s.storage.Order().UpdateOrder(*req)
 	if err != nil {
 		s.logger.Error("failed to update order", l.Error(err))
 		return nil, status.Error(codes.Internal, "failed to update order")
@@ -76,8 +76,8 @@ func (s *OrderService) Update(ctx context.Context, req *pb.Order) (*pb.Order, er
 	return &order, nil
 }
 
-func (s *OrderService) Delete(ctx context.Context, req *pb.ByIdReq) (*pb.Empty, error) {
-	err := s.storage.Order().Delete(req.Id)
+func (s *OrderService) DeleteOrder(ctx context.Context, req *pb.ByIdReq) (*pb.Empty, error) {
+	err := s.storage.Order().DeleteOrder(req.Id)
 	if err != nil {
 		s.logger.Error("failed to delete order", l.Error(err))
 		return nil, status.Error(codes.Internal, "failed to delete order")

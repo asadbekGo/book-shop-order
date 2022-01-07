@@ -14,8 +14,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   else
     sed -i -e "s/,omitempty//g" $CURRENT_DIR/genproto/*.go
 fi
-# make proto-gen 
-# cd scripts 
-# ll // -rw-rw-r-- => for + x
-# chmod +x gen-proto.sh  
-# make proto-gen  
