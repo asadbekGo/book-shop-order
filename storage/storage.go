@@ -3,6 +3,7 @@ package storage
 import (
 	"github.com/jmoiron/sqlx"
 
+	client "github.com/asadbekGo/book-shop-order/service/grpc_client"
 	"github.com/asadbekGo/book-shop-order/storage/postgres"
 	"github.com/asadbekGo/book-shop-order/storage/repo"
 )
@@ -18,10 +19,10 @@ type storagePg struct {
 }
 
 // NewStoragePg ...
-func NewStoragePg(db *sqlx.DB) *storagePg {
+func NewStoragePg(db *sqlx.DB, client client.IServiceManager) *storagePg {
 	return &storagePg{
 		db:        db,
-		orderRepo: postgres.NewOrderRepo(db),
+		orderRepo: postgres.NewOrderRepo(db, client),
 	}
 }
 

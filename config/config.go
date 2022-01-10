@@ -8,16 +8,19 @@ import (
 
 // Config ...
 type Config struct {
-	Environment       string
-	PostgresHost      string
-	PostgresPort      int
-	PostgresDatabase  string
-	PostgresUser      string
-	PostgresPassword  string
-	LogLevel          string
-	RPCPort           string
-	ReviewServiceHost string
-	ReviewServicePort int
+	Environment        string
+	PostgresHost       string
+	PostgresPort       int
+	PostgresDatabase   string
+	PostgresUser       string
+	PostgresPassword   string
+	LogLevel           string
+	RPCPort            string
+	CatalogServiceHost string
+	CatalogServicePort int
+	ReviewServiceHost  string
+	ReviewServicePort  int
+	CtxTimeout         int
 }
 
 // Load loads environment vars and inflates Config
@@ -34,6 +37,12 @@ func Load() Config {
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 
 	c.RPCPort = cast.ToString(getOrReturnDefault("RPC_PORT", ":50052"))
+
+	// catalog-service idfs
+	c.CatalogServiceHost = cast.ToString(getOrReturnDefault("CATALOG_SERVICE_HOST", "127.0.0.1"))
+	c.CatalogServicePort = cast.ToInt(getOrReturnDefault("CATALOG_SERVICE_PORT", 50051))
+
+	c.CtxTimeout = cast.ToInt(getOrReturnDefault("CTX_TIMEOUT", 7))
 
 	return c
 }

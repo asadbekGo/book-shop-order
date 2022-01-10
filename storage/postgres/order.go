@@ -1,27 +1,32 @@
 package postgres
 
 import (
+	"context"
 	"database/sql"
-	"fmt"
+	"time"
 
 	"github.com/jmoiron/sqlx"
 
+	pbc "github.com/asadbekGo/book-shop-order/genproto/catalog_service"
 	pb "github.com/asadbekGo/book-shop-order/genproto/order_service"
+	client "github.com/asadbekGo/book-shop-order/service/grpc_client"
 )
 
 type orderRepo struct {
-	db *sqlx.DB
+	db      *sqlx.DB
+	catalog client.IServiceManager
 }
 
 // NewOrderRepo ...
-func NewOrderRepo(db *sqlx.DB) *orderRepo {
-	return &orderRepo{db: db}
+func NewOrderRepo(db *sqlx.DB, client client.IServiceManager) *orderRepo {
+	return &orderRepo{
+		db:      db,
+		catalog: client,
+	}
 }
 
-func (r *orderRepo) CreateOrder(order pb.Order) (pb.Order, error) {
+func (r *orderRepo) CreateOrder(order pb.OrderReq) (pb.OrderResp, error) {
 	var id string
-	fmt.Println("OK")
-
 	err := r.db.QueryRow(`
 		INSERT INTO orders(order_id, book_id, description, updated_at)
 		VALUES ($1, $2, $3, current_timestamp) RETURNING order_id`,
@@ -30,38 +35,48 @@ func (r *orderRepo) CreateOrder(order pb.Order) (pb.Order, error) {
 		order.Description,
 	).Scan(&id)
 	if err != nil {
-		return pb.Order{}, err
+		return pb.OrderResp{}, err
 	}
 
-	order, err = r.GetOrder(id)
+	orderResp, err := r.GetOrder(id)
 
 	if err != nil {
-		return pb.Order{}, nil
+		return pb.OrderResp{}, nil
 	}
 
-	return order, nil
+	return orderResp, nil
 }
 
-func (r *orderRepo) GetOrder(id string) (pb.Order, error) {
-	var order pb.Order
+func (r *orderRepo) GetOrder(id string) (pb.OrderResp, error) {
+	var order pb.OrderResp
+	var bookId string
 
 	err := r.db.QueryRow(`
 		SELECT order_id, book_id, description, created_at, updated_at FROM orders
 		WHERE order_id=$1 AND deleted_at IS NULL`, id).Scan(
 		&order.Id,
-		&order.BookId,
+		&bookId,
 		&order.Description,
 		&order.CreatedAt,
 		&order.UpdatedAt,
 	)
 	if err != nil {
-		return pb.Order{}, err
+		return pb.OrderResp{}, err
 	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(7))
+	defer cancel()
+	book, err := r.catalog.CatalogService().GetBook(ctx, &pbc.ByIdReq{Id: bookId})
+	if err != nil {
+		return pb.OrderResp{}, err
+	}
+
+	order.Book = book.Name
 
 	return order, nil
 }
 
-func (r *orderRepo) ListOrders(page, limit int64) ([]*pb.Order, int64, error) {
+func (r *orderRepo) ListOrders(page, limit int64) ([]*pb.OrderResp, int64, error) {
 	offset := (page - 1) * limit
 
 	rows, err := r.db.Queryx(`
@@ -77,21 +92,31 @@ func (r *orderRepo) ListOrders(page, limit int64) ([]*pb.Order, int64, error) {
 	defer rows.Close() // nolint:errcheck
 
 	var (
-		orders []*pb.Order
+		orders []*pb.OrderResp
 		count  int64
 	)
 
 	for rows.Next() {
-		var order pb.Order
+		var order pb.OrderResp
+		var bookId string
 		err = rows.Scan(
 			&order.Id,
-			&order.BookId,
+			&bookId,
 			&order.Description,
 			&order.CreatedAt,
 		)
 		if err != nil {
 			return nil, 0, err
 		}
+
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(7))
+		defer cancel()
+		book, err := r.catalog.CatalogService().GetBook(ctx, &pbc.ByIdReq{Id: bookId})
+		if err != nil {
+			return nil, 0, err
+		}
+
+		order.Book = book.Name
 
 		orders = append(orders, &order)
 	}
@@ -104,7 +129,7 @@ func (r *orderRepo) ListOrders(page, limit int64) ([]*pb.Order, int64, error) {
 	return orders, count, nil
 }
 
-func (r *orderRepo) UpdateOrder(order pb.Order) (pb.Order, error) {
+func (r *orderRepo) UpdateOrder(order pb.OrderReq) (pb.OrderResp, error) {
 	result, err := r.db.Exec(`
 		UPDATE orders SET book_id=$1, description=$2, updated_at=current_timestamp
 		WHERE order_id=$3 AND deleted_at IS NULL`,
@@ -113,18 +138,18 @@ func (r *orderRepo) UpdateOrder(order pb.Order) (pb.Order, error) {
 		order.Id,
 	)
 	if err != nil {
-		return pb.Order{}, err
+		return pb.OrderResp{}, err
 	}
 	if i, _ := result.RowsAffected(); i == 0 {
-		return pb.Order{}, sql.ErrNoRows
+		return pb.OrderResp{}, sql.ErrNoRows
 	}
 
-	order, err = r.GetOrder(order.Id)
+	orderResp, err := r.GetOrder(order.Id)
 	if err != nil {
-		return pb.Order{}, err
+		return pb.OrderResp{}, err
 	}
 
-	return order, nil
+	return orderResp, nil
 }
 
 func (r *orderRepo) DeleteOrder(id string) error {

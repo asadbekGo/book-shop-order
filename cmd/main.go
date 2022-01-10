@@ -11,6 +11,7 @@ import (
 	"github.com/asadbekGo/book-shop-order/pkg/db"
 	"github.com/asadbekGo/book-shop-order/pkg/logger"
 	"github.com/asadbekGo/book-shop-order/service"
+	client "github.com/asadbekGo/book-shop-order/service/grpc_client"
 	"github.com/asadbekGo/book-shop-order/storage"
 )
 
@@ -35,9 +36,15 @@ func main() {
 		log.Fatal("sqlx connection to postgres error", logger.Error(err))
 	}
 
-	pgStorage := storage.NewStoragePg(connDB)
+	client, err := client.New(cfg)
+
+	pgStorage := storage.NewStoragePg(connDB, client)
 
 	orderService := service.NewOrderService(pgStorage, log)
+
+	if err != nil {
+		log.Error("gRPC dial error", logger.Error(err))
+	}
 
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {
