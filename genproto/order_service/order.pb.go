@@ -26,29 +26,27 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type Order struct {
+type OrderReq struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	BookId               string   `protobuf:"bytes,2,opt,name=book_id,json=bookId,proto3" json:"book_id,omitempty"`
+	BookId               string   `protobuf:"bytes,2,opt,name=bookId,proto3" json:"bookId,omitempty"`
 	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	CreatedAt            string   `protobuf:"bytes,4,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,5,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Order) Reset()         { *m = Order{} }
-func (m *Order) String() string { return proto.CompactTextString(m) }
-func (*Order) ProtoMessage()    {}
-func (*Order) Descriptor() ([]byte, []int) {
+func (m *OrderReq) Reset()         { *m = OrderReq{} }
+func (m *OrderReq) String() string { return proto.CompactTextString(m) }
+func (*OrderReq) ProtoMessage()    {}
+func (*OrderReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_cd01338c35d87077, []int{0}
 }
-func (m *Order) XXX_Unmarshal(b []byte) error {
+func (m *OrderReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *OrderReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_Order.Marshal(b, m, deterministic)
+		return xxx_messageInfo_OrderReq.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -58,47 +56,112 @@ func (m *Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *Order) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Order.Merge(m, src)
+func (m *OrderReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OrderReq.Merge(m, src)
 }
-func (m *Order) XXX_Size() int {
+func (m *OrderReq) XXX_Size() int {
 	return m.Size()
 }
-func (m *Order) XXX_DiscardUnknown() {
-	xxx_messageInfo_Order.DiscardUnknown(m)
+func (m *OrderReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_OrderReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Order proto.InternalMessageInfo
+var xxx_messageInfo_OrderReq proto.InternalMessageInfo
 
-func (m *Order) GetId() string {
+func (m *OrderReq) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Order) GetBookId() string {
+func (m *OrderReq) GetBookId() string {
 	if m != nil {
 		return m.BookId
 	}
 	return ""
 }
 
-func (m *Order) GetDescription() string {
+func (m *OrderReq) GetDescription() string {
 	if m != nil {
 		return m.Description
 	}
 	return ""
 }
 
-func (m *Order) GetCreatedAt() string {
+type OrderResp struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Book                 string   `protobuf:"bytes,2,opt,name=book,proto3" json:"book,omitempty"`
+	Description          string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	CreatedAt            string   `protobuf:"bytes,4,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
+	UpdatedAt            string   `protobuf:"bytes,5,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *OrderResp) Reset()         { *m = OrderResp{} }
+func (m *OrderResp) String() string { return proto.CompactTextString(m) }
+func (*OrderResp) ProtoMessage()    {}
+func (*OrderResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd01338c35d87077, []int{1}
+}
+func (m *OrderResp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *OrderResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_OrderResp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *OrderResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OrderResp.Merge(m, src)
+}
+func (m *OrderResp) XXX_Size() int {
+	return m.Size()
+}
+func (m *OrderResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_OrderResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OrderResp proto.InternalMessageInfo
+
+func (m *OrderResp) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *OrderResp) GetBook() string {
+	if m != nil {
+		return m.Book
+	}
+	return ""
+}
+
+func (m *OrderResp) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *OrderResp) GetCreatedAt() string {
 	if m != nil {
 		return m.CreatedAt
 	}
 	return ""
 }
 
-func (m *Order) GetUpdatedAt() string {
+func (m *OrderResp) GetUpdatedAt() string {
 	if m != nil {
 		return m.UpdatedAt
 	}
@@ -116,7 +179,7 @@ func (m *ByIdReq) Reset()         { *m = ByIdReq{} }
 func (m *ByIdReq) String() string { return proto.CompactTextString(m) }
 func (*ByIdReq) ProtoMessage()    {}
 func (*ByIdReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd01338c35d87077, []int{1}
+	return fileDescriptor_cd01338c35d87077, []int{2}
 }
 func (m *ByIdReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -164,7 +227,7 @@ func (m *ListReq) Reset()         { *m = ListReq{} }
 func (m *ListReq) String() string { return proto.CompactTextString(m) }
 func (*ListReq) ProtoMessage()    {}
 func (*ListReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd01338c35d87077, []int{2}
+	return fileDescriptor_cd01338c35d87077, []int{3}
 }
 func (m *ListReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -208,18 +271,18 @@ func (m *ListReq) GetLimit() int64 {
 }
 
 type ListResp struct {
-	Orders               []*Order `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
-	Count                int64    `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Orders               []*OrderResp `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
+	Count                int64        `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *ListResp) Reset()         { *m = ListResp{} }
 func (m *ListResp) String() string { return proto.CompactTextString(m) }
 func (*ListResp) ProtoMessage()    {}
 func (*ListResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd01338c35d87077, []int{3}
+	return fileDescriptor_cd01338c35d87077, []int{4}
 }
 func (m *ListResp) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -248,7 +311,7 @@ func (m *ListResp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ListResp proto.InternalMessageInfo
 
-func (m *ListResp) GetOrders() []*Order {
+func (m *ListResp) GetOrders() []*OrderResp {
 	if m != nil {
 		return m.Orders
 	}
@@ -272,7 +335,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd01338c35d87077, []int{4}
+	return fileDescriptor_cd01338c35d87077, []int{5}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -302,7 +365,8 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*Order)(nil), "order.Order")
+	proto.RegisterType((*OrderReq)(nil), "order.OrderReq")
+	proto.RegisterType((*OrderResp)(nil), "order.OrderResp")
 	proto.RegisterType((*ByIdReq)(nil), "order.ByIdReq")
 	proto.RegisterType((*ListReq)(nil), "order.ListReq")
 	proto.RegisterType((*ListResp)(nil), "order.ListResp")
@@ -312,29 +376,30 @@ func init() {
 func init() { proto.RegisterFile("order.proto", fileDescriptor_cd01338c35d87077) }
 
 var fileDescriptor_cd01338c35d87077 = []byte{
-	// 337 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x92, 0xdf, 0x4a, 0x02, 0x41,
-	0x14, 0xc6, 0x1b, 0xd7, 0x75, 0xf5, 0xac, 0x54, 0x0c, 0x41, 0x9b, 0xc4, 0x22, 0x4b, 0x17, 0x46,
-	0xe4, 0x85, 0x3e, 0x41, 0xf6, 0x0f, 0x21, 0x10, 0x36, 0xba, 0x0e, 0xdd, 0x19, 0x62, 0x48, 0x9d,
-	0x69, 0x77, 0x0c, 0x7c, 0x89, 0xae, 0x7b, 0xa4, 0x2e, 0x7b, 0x84, 0xb0, 0xbb, 0x9e, 0x22, 0xe6,
-	0xcc, 0x68, 0x29, 0x44, 0x77, 0xfb, 0x9d, 0xdf, 0x99, 0xc3, 0xf7, 0x7d, 0x2c, 0x84, 0x32, 0x67,
-	0x3c, 0x6f, 0xab, 0x5c, 0x6a, 0x49, 0x7d, 0x14, 0xc9, 0x0b, 0x01, 0x7f, 0x60, 0xbe, 0xe8, 0x36,
-	0x94, 0x04, 0x8b, 0x48, 0x93, 0xb4, 0x6a, 0x69, 0x49, 0x30, 0xba, 0x0f, 0xc1, 0x48, 0xca, 0xc7,
-	0x7b, 0xc1, 0xa2, 0x12, 0x0e, 0x2b, 0x46, 0xf6, 0x19, 0x6d, 0x42, 0xc8, 0x78, 0x91, 0xe5, 0x42,
-	0x69, 0x21, 0xa7, 0x91, 0x87, 0xf0, 0xf7, 0x88, 0x1e, 0x42, 0x2d, 0xcb, 0xf9, 0x50, 0x73, 0x76,
-	0xa6, 0xa3, 0x32, 0xf2, 0x9f, 0x81, 0xa1, 0x33, 0xc5, 0x1c, 0xf5, 0x2d, 0x5d, 0x0d, 0x92, 0x03,
-	0x08, 0x7a, 0xf3, 0x3e, 0x4b, 0xf9, 0xd3, 0xa6, 0xa3, 0xa4, 0x0b, 0xc1, 0x8d, 0x28, 0xb4, 0x41,
-	0x14, 0xca, 0x6a, 0xf8, 0xc0, 0x11, 0x7a, 0x29, 0x7e, 0xd3, 0x3d, 0xf0, 0xc7, 0x62, 0x22, 0x34,
-	0xda, 0xf5, 0x52, 0x2b, 0x92, 0x2b, 0xa8, 0xda, 0x47, 0x85, 0xa2, 0x47, 0x50, 0xc1, 0xd4, 0x45,
-	0x44, 0x9a, 0x5e, 0x2b, 0xec, 0xd4, 0xdb, 0xb6, 0x11, 0x2c, 0x20, 0x75, 0xcc, 0xdc, 0xc9, 0xe4,
-	0x6c, 0xba, 0xba, 0x83, 0x22, 0x09, 0xc0, 0xbf, 0x9c, 0x28, 0x3d, 0xef, 0x7c, 0x11, 0xa8, 0xe3,
-	0x83, 0x5b, 0x9e, 0x3f, 0x8b, 0x8c, 0xd3, 0x63, 0x08, 0xcf, 0x31, 0x9c, 0xed, 0x71, 0xed, 0x68,
-	0x63, 0x4d, 0xd1, 0x16, 0x54, 0xaf, 0xb9, 0x76, 0x7d, 0x3b, 0xe2, 0xd2, 0x6e, 0x6c, 0x9e, 0x02,
-	0x18, 0xdb, 0x03, 0x6b, 0x69, 0xb9, 0xeb, 0xe2, 0x37, 0x76, 0xd6, 0x74, 0xa1, 0x8c, 0x87, 0x3b,
-	0xac, 0xf0, 0x7f, 0x0f, 0x27, 0x10, 0x5e, 0xf0, 0x31, 0x5f, 0xae, 0xfe, 0x65, 0x03, 0xc3, 0xf6,
-	0x76, 0xdf, 0x16, 0x31, 0x79, 0x5f, 0xc4, 0xe4, 0x63, 0x11, 0x93, 0xd7, 0xcf, 0x78, 0x6b, 0x54,
-	0xc1, 0xdf, 0xa7, 0xfb, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x40, 0x64, 0xd2, 0xaf, 0x4d, 0x02, 0x00,
-	0x00,
+	// 359 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xdf, 0x4a, 0x3a, 0x41,
+	0x18, 0xfd, 0x8d, 0xeb, 0xfa, 0xe7, 0x5b, 0x51, 0x19, 0x7e, 0xc4, 0x26, 0xb1, 0xc8, 0x5e, 0x09,
+	0x95, 0x84, 0x3e, 0x41, 0x56, 0x84, 0x11, 0x08, 0x5b, 0x3d, 0x80, 0xee, 0x0c, 0x31, 0xa4, 0xce,
+	0xb8, 0x3b, 0x06, 0x3e, 0x44, 0xf7, 0x3d, 0x52, 0x97, 0x3d, 0x42, 0xd8, 0x6b, 0x74, 0x11, 0xf3,
+	0xed, 0x68, 0x99, 0x42, 0xdd, 0xcd, 0x39, 0xe7, 0xfb, 0xce, 0x9e, 0xf3, 0xb1, 0xe0, 0xc9, 0x84,
+	0xf1, 0xa4, 0xad, 0x12, 0xa9, 0x25, 0x75, 0x11, 0x84, 0xb7, 0x50, 0x1a, 0x98, 0x47, 0xc4, 0x67,
+	0xb4, 0x0a, 0x39, 0xc1, 0x7c, 0xd2, 0x24, 0xad, 0x72, 0x94, 0x13, 0x8c, 0xee, 0x41, 0x61, 0x24,
+	0xe5, 0x43, 0x9f, 0xf9, 0x39, 0xe4, 0x2c, 0xa2, 0x4d, 0xf0, 0x18, 0x4f, 0xe3, 0x44, 0x28, 0x2d,
+	0xe4, 0xd4, 0x77, 0x50, 0xfc, 0x4e, 0x85, 0x4f, 0x04, 0xca, 0xd6, 0x36, 0x55, 0x5b, 0xbe, 0x14,
+	0xf2, 0xc6, 0xc9, 0xba, 0xe2, 0xfb, 0x77, 0x4f, 0x7a, 0x00, 0xe5, 0x38, 0xe1, 0x43, 0xcd, 0xd9,
+	0xa9, 0xf6, 0xf3, 0xa8, 0x7f, 0x11, 0x46, 0x9d, 0x2b, 0x66, 0x55, 0x37, 0x53, 0xd7, 0x44, 0xb8,
+	0x0f, 0xc5, 0xde, 0xa2, 0xcf, 0x76, 0x94, 0x0c, 0xbb, 0x50, 0xbc, 0x16, 0xa9, 0x36, 0x12, 0x85,
+	0xbc, 0x1a, 0xde, 0x73, 0x14, 0x9d, 0x08, 0xdf, 0xf4, 0x3f, 0xb8, 0x63, 0x31, 0x11, 0x1a, 0xc3,
+	0x3a, 0x51, 0x06, 0xc2, 0x2b, 0x28, 0x65, 0x4b, 0xa9, 0xa2, 0x2d, 0x28, 0xe0, 0x29, 0x53, 0x9f,
+	0x34, 0x9d, 0x96, 0xd7, 0xa9, 0xb7, 0xb3, 0x33, 0xaf, 0xfb, 0x47, 0x56, 0x37, 0x5e, 0xb1, 0x9c,
+	0x4f, 0xd7, 0x5e, 0x08, 0xc2, 0x22, 0xb8, 0x17, 0x13, 0xa5, 0x17, 0x9d, 0x0f, 0x02, 0x15, 0x5c,
+	0xba, 0xe1, 0xc9, 0xa3, 0x88, 0x39, 0x3d, 0x01, 0xef, 0x0c, 0x0b, 0x22, 0x4b, 0x6b, 0x9b, 0xc6,
+	0xb3, 0xc6, 0xd6, 0x97, 0xe8, 0x11, 0x94, 0x2e, 0xb9, 0xce, 0xc6, 0xab, 0x56, 0xb5, 0xc5, 0x77,
+	0x4c, 0x1f, 0x03, 0x98, 0x16, 0x83, 0x2c, 0xdd, 0x6a, 0xde, 0x5e, 0xa3, 0x51, 0xdb, 0xc0, 0xa9,
+	0x32, 0x71, 0xee, 0xf0, 0xa2, 0x7f, 0x8e, 0x73, 0x08, 0xde, 0x39, 0x1f, 0xf3, 0xd5, 0xc6, 0xcf,
+	0x44, 0x15, 0x8b, 0xb1, 0x7e, 0xaf, 0xfe, 0xb2, 0x0c, 0xc8, 0xeb, 0x32, 0x20, 0x6f, 0xcb, 0x80,
+	0x3c, 0xbf, 0x07, 0xff, 0x46, 0x05, 0xfc, 0x53, 0xbb, 0x9f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xc5,
+	0x6b, 0xc4, 0xf0, 0xb8, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -349,10 +414,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OrderServiceClient interface {
-	CreateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
-	GetOrder(ctx context.Context, in *ByIdReq, opts ...grpc.CallOption) (*Order, error)
+	CreateOrder(ctx context.Context, in *OrderReq, opts ...grpc.CallOption) (*OrderResp, error)
+	GetOrder(ctx context.Context, in *ByIdReq, opts ...grpc.CallOption) (*OrderResp, error)
 	ListOrders(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListResp, error)
-	UpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error)
+	UpdateOrder(ctx context.Context, in *OrderReq, opts ...grpc.CallOption) (*OrderResp, error)
 	DeleteOrder(ctx context.Context, in *ByIdReq, opts ...grpc.CallOption) (*Empty, error)
 }
 
@@ -364,8 +429,8 @@ func NewOrderServiceClient(cc *grpc.ClientConn) OrderServiceClient {
 	return &orderServiceClient{cc}
 }
 
-func (c *orderServiceClient) CreateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
-	out := new(Order)
+func (c *orderServiceClient) CreateOrder(ctx context.Context, in *OrderReq, opts ...grpc.CallOption) (*OrderResp, error) {
+	out := new(OrderResp)
 	err := c.cc.Invoke(ctx, "/order.OrderService/CreateOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -373,8 +438,8 @@ func (c *orderServiceClient) CreateOrder(ctx context.Context, in *Order, opts ..
 	return out, nil
 }
 
-func (c *orderServiceClient) GetOrder(ctx context.Context, in *ByIdReq, opts ...grpc.CallOption) (*Order, error) {
-	out := new(Order)
+func (c *orderServiceClient) GetOrder(ctx context.Context, in *ByIdReq, opts ...grpc.CallOption) (*OrderResp, error) {
+	out := new(OrderResp)
 	err := c.cc.Invoke(ctx, "/order.OrderService/GetOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -391,8 +456,8 @@ func (c *orderServiceClient) ListOrders(ctx context.Context, in *ListReq, opts .
 	return out, nil
 }
 
-func (c *orderServiceClient) UpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Order, error) {
-	out := new(Order)
+func (c *orderServiceClient) UpdateOrder(ctx context.Context, in *OrderReq, opts ...grpc.CallOption) (*OrderResp, error) {
+	out := new(OrderResp)
 	err := c.cc.Invoke(ctx, "/order.OrderService/UpdateOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -411,10 +476,10 @@ func (c *orderServiceClient) DeleteOrder(ctx context.Context, in *ByIdReq, opts 
 
 // OrderServiceServer is the server API for OrderService service.
 type OrderServiceServer interface {
-	CreateOrder(context.Context, *Order) (*Order, error)
-	GetOrder(context.Context, *ByIdReq) (*Order, error)
+	CreateOrder(context.Context, *OrderReq) (*OrderResp, error)
+	GetOrder(context.Context, *ByIdReq) (*OrderResp, error)
 	ListOrders(context.Context, *ListReq) (*ListResp, error)
-	UpdateOrder(context.Context, *Order) (*Order, error)
+	UpdateOrder(context.Context, *OrderReq) (*OrderResp, error)
 	DeleteOrder(context.Context, *ByIdReq) (*Empty, error)
 }
 
@@ -422,16 +487,16 @@ type OrderServiceServer interface {
 type UnimplementedOrderServiceServer struct {
 }
 
-func (*UnimplementedOrderServiceServer) CreateOrder(ctx context.Context, req *Order) (*Order, error) {
+func (*UnimplementedOrderServiceServer) CreateOrder(ctx context.Context, req *OrderReq) (*OrderResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
 }
-func (*UnimplementedOrderServiceServer) GetOrder(ctx context.Context, req *ByIdReq) (*Order, error) {
+func (*UnimplementedOrderServiceServer) GetOrder(ctx context.Context, req *ByIdReq) (*OrderResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
 func (*UnimplementedOrderServiceServer) ListOrders(ctx context.Context, req *ListReq) (*ListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOrders not implemented")
 }
-func (*UnimplementedOrderServiceServer) UpdateOrder(ctx context.Context, req *Order) (*Order, error) {
+func (*UnimplementedOrderServiceServer) UpdateOrder(ctx context.Context, req *OrderReq) (*OrderResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrder not implemented")
 }
 func (*UnimplementedOrderServiceServer) DeleteOrder(ctx context.Context, req *ByIdReq) (*Empty, error) {
@@ -443,7 +508,7 @@ func RegisterOrderServiceServer(s *grpc.Server, srv OrderServiceServer) {
 }
 
 func _OrderService_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Order)
+	in := new(OrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -455,7 +520,7 @@ func _OrderService_CreateOrder_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/order.OrderService/CreateOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).CreateOrder(ctx, req.(*Order))
+		return srv.(OrderServiceServer).CreateOrder(ctx, req.(*OrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -497,7 +562,7 @@ func _OrderService_ListOrders_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _OrderService_UpdateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Order)
+	in := new(OrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -509,7 +574,7 @@ func _OrderService_UpdateOrder_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/order.OrderService/UpdateOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).UpdateOrder(ctx, req.(*Order))
+		return srv.(OrderServiceServer).UpdateOrder(ctx, req.(*OrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -561,7 +626,7 @@ var _OrderService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "order.proto",
 }
 
-func (m *Order) Marshal() (dAtA []byte, err error) {
+func (m *OrderReq) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -571,12 +636,60 @@ func (m *Order) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Order) MarshalTo(dAtA []byte) (int, error) {
+func (m *OrderReq) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *Order) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *OrderReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintOrder(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.BookId) > 0 {
+		i -= len(m.BookId)
+		copy(dAtA[i:], m.BookId)
+		i = encodeVarintOrder(dAtA, i, uint64(len(m.BookId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Id) > 0 {
+		i -= len(m.Id)
+		copy(dAtA[i:], m.Id)
+		i = encodeVarintOrder(dAtA, i, uint64(len(m.Id)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *OrderResp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *OrderResp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OrderResp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -606,10 +719,10 @@ func (m *Order) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.BookId) > 0 {
-		i -= len(m.BookId)
-		copy(dAtA[i:], m.BookId)
-		i = encodeVarintOrder(dAtA, i, uint64(len(m.BookId)))
+	if len(m.Book) > 0 {
+		i -= len(m.Book)
+		copy(dAtA[i:], m.Book)
+		i = encodeVarintOrder(dAtA, i, uint64(len(m.Book)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -778,7 +891,7 @@ func encodeVarintOrder(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *Order) Size() (n int) {
+func (m *OrderReq) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -789,6 +902,30 @@ func (m *Order) Size() (n int) {
 		n += 1 + l + sovOrder(uint64(l))
 	}
 	l = len(m.BookId)
+	if l > 0 {
+		n += 1 + l + sovOrder(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovOrder(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *OrderResp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovOrder(uint64(l))
+	}
+	l = len(m.Book)
 	if l > 0 {
 		n += 1 + l + sovOrder(uint64(l))
 	}
@@ -883,7 +1020,7 @@ func sovOrder(x uint64) (n int) {
 func sozOrder(x uint64) (n int) {
 	return sovOrder(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *Order) Unmarshal(dAtA []byte) error {
+func (m *OrderReq) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -906,10 +1043,10 @@ func (m *Order) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Order: wiretype end group for non-group")
+			return fmt.Errorf("proto: OrderReq: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Order: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: OrderReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -975,6 +1112,153 @@ func (m *Order) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.BookId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOrder
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOrder
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOrder
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipOrder(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthOrder
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *OrderResp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowOrder
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: OrderResp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: OrderResp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOrder
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOrder
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOrder
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Book", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOrder
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOrder
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOrder
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Book = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -1324,7 +1608,7 @@ func (m *ListResp) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Orders = append(m.Orders, &Order{})
+			m.Orders = append(m.Orders, &OrderResp{})
 			if err := m.Orders[len(m.Orders)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}

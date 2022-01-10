@@ -26,7 +26,7 @@ func NewOrderService(storage storage.IStorage, log l.Logger) *OrderService {
 	}
 }
 
-func (s *OrderService) CreateOrder(ctx context.Context, req *pb.Order) (*pb.Order, error) {
+func (s *OrderService) CreateOrder(ctx context.Context, req *pb.OrderReq) (*pb.OrderResp, error) {
 	id, err := uuid.NewV4()
 	if err != nil {
 		s.logger.Error("failed while generating uuid", l.Error(err))
@@ -43,7 +43,7 @@ func (s *OrderService) CreateOrder(ctx context.Context, req *pb.Order) (*pb.Orde
 	return &order, nil
 }
 
-func (s *OrderService) GetOrder(ctx context.Context, req *pb.ByIdReq) (*pb.Order, error) {
+func (s *OrderService) GetOrder(ctx context.Context, req *pb.ByIdReq) (*pb.OrderResp, error) {
 	order, err := s.storage.Order().GetOrder(req.Id)
 	if err != nil {
 		s.logger.Error("failed to get order", l.Error(err))
@@ -66,7 +66,7 @@ func (s *OrderService) ListOrders(ctx context.Context, req *pb.ListReq) (*pb.Lis
 	}, nil
 }
 
-func (s *OrderService) UpdateOrder(ctx context.Context, req *pb.Order) (*pb.Order, error) {
+func (s *OrderService) UpdateOrder(ctx context.Context, req *pb.OrderReq) (*pb.OrderResp, error) {
 	order, err := s.storage.Order().UpdateOrder(*req)
 	if err != nil {
 		s.logger.Error("failed to update order", l.Error(err))
