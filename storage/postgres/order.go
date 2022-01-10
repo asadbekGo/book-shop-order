@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/jmoiron/sqlx"
 
@@ -19,6 +20,8 @@ func NewOrderRepo(db *sqlx.DB) *orderRepo {
 
 func (r *orderRepo) CreateOrder(order pb.Order) (pb.Order, error) {
 	var id string
+	fmt.Println("OK")
+
 	err := r.db.QueryRow(`
 		INSERT INTO orders(order_id, book_id, description, updated_at)
 		VALUES ($1, $2, $3, current_timestamp) RETURNING order_id`,
