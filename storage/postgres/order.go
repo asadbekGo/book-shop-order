@@ -39,7 +39,6 @@ func (r *orderRepo) CreateOrder(order pb.OrderReq) (pb.OrderResp, error) {
 	}
 
 	orderResp, err := r.GetOrder(id)
-
 	if err != nil {
 		return pb.OrderResp{}, nil
 	}
@@ -111,7 +110,8 @@ func (r *orderRepo) ListOrders(page, limit int64) ([]*pb.OrderResp, int64, error
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(7))
 		defer cancel()
-		book, err := r.catalog.CatalogService().GetBook(ctx, &pbc.ByIdReq{Id: bookId})
+		var book *pbc.BookResp
+		book, err = r.catalog.CatalogService().GetBook(ctx, &pbc.ByIdReq{Id: bookId})
 		if err != nil {
 			return nil, 0, err
 		}
